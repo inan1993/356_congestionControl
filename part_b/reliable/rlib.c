@@ -74,9 +74,8 @@ xmalloc (size_t n)
 }
 #endif /* !DMALLOC */
 
-#if NEED_CLOCK_GETTIME
-int
-clock_gettime (int id, struct timespec *tp)
+//#if NEED_CLOCK_GETTIME
+int clock_gettime (int id, struct timespec *tp)
 {
   struct timeval tv;
 
@@ -93,7 +92,7 @@ clock_gettime (int id, struct timespec *tp)
     return -1;
   }
 }
-#endif /* NEED_CLOCK_GETTIME */
+//#endif /* NEED_CLOCK_GETTIME */
 
 void
 print_pkt (const packet_t *buf, const char *op, int n)
@@ -490,7 +489,8 @@ conn_poll (const struct config_common *cc)
     n = poll (cevents, ncevents, need_timer_in (&last_timeout, cc->timer));
   else
     n = poll (cevents+1, ncevents-1, need_timer_in (&last_timeout, cc->timer));
-
+    i=0;
+i=i+n;	
   for (i = 1; i < ncevents; i++) {
     if (cevents[i].revents & (POLLIN|POLLERR|POLLHUP)) {
       if ((c = evreaders[i]) && !c->delete_me) {
