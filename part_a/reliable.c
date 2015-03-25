@@ -17,7 +17,7 @@
 #define MAX_DATA_SIZE 500
 #define d 0
 
-
+int packetsInFlight[500]={0};
 
 struct reliable_state {
   rel_t *next;			/* Linked list for traversing all connections */
@@ -32,6 +32,7 @@ struct reliable_state {
   int lastByteWritten;
   uint32_t seqNum;
   uint32_t nextAckNum;
+  
   char *sendingWindow;
 
   //for receiving side
@@ -59,6 +60,8 @@ void allignReceivingWindow(rel_t *r);
 void makeAckPacket(rel_t *s, struct packet *p);
 int getReceiveBufferSize(rel_t *r);
 void rel_output2(rel_t *r, int lenToPrint);
+void sendAck(rel_t *r);
+int checkDestroy(rel_t *r);
 
 
 
@@ -120,7 +123,10 @@ rel_destroy (rel_t *r)
   *r->prev = r->next;
   conn_destroy (r->c);
 
-  /* Free any other allocated memory here */
+  free(r->sendingWindow);
+  free(r->receivingWindow);
+  free(r);
+
 }
 
 
@@ -167,12 +173,31 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
     if(d==1)
       printf("received data packet of length %d: %s\n", ntohs(pkt->len),pkt->data);
     //checksum isn't the same. Just drop the packet
-    if(cksum(pkt->data,pkt->len) != pkt->cksum)
+    // if(cksum(pkt->data,pkt->len) != pkt->cksum){
+    //   printf("hi\n");
+    //   int c = pkt->cksum;
+    //   pkt->cksum=0;
+    //   // printf("they are %d %d", c, cksum(pkt, pkt->len));
+    //   // if(d==1)printf("checksum failed!\n");
+    //   // return;
+    // }
+
+    //if we've received an EOF, check if we should destroy the connection
+    if(pkt->len == 12){
+      checkDestroy(r);
       return;
+    }
+    //if we've already acked this packet, our ack was lost so ack it again!
+    if(ntohl(pkt->seqno)<r->nextSeqNum){
+      if(d==1)printf("reacking cause ack was lost\n");
+      sendAck(r);
+      return;
+    }
     //If you have room for it in the TCP buffer, store it
     if(getReceiveBufferSize(r)>=MAX_DATA_SIZE){
+
       int i;
-      //this loop is so there is room left is this packet was received out of order. If it was in order, this for loop won't do anything
+      //this loop is so there is room left if this packet was received out of order. If it was in order, this for loop won't do anything
       for(i=0; i<(ntohl(pkt->seqno) - r->nextSeqNum); i++){
         r->lastByteReceived+=MAX_DATA_SIZE;
 
@@ -213,21 +238,25 @@ rel_read (rel_t *s)
       return;
     //you received an error
     if(isData==-1){
-      //check that all acks are received. idk how to do this now
-      rel_destroy(s);
+      //check if packet should be destroyed
+      checkDestroy(s);
       return;
     }
     //update the lastByteWritten by the size of one packet
     s->lastByteWritten+=MAX_DATA_SIZE;
     
-    if(d==1)
-      printf("Data read is %s with size %d and new sw looks like %s with size of %d\n",s->sendingWindow+s->lastByteWritten-MAX_DATA_SIZE,isData,s->sendingWindow, getSendBufferSize(s) );
+    // if(d==1)
+      // printf("Packet sent %s with size %d and new sw looks like %s with size of %d\n",s->sendingWindow+s->lastByteWritten-MAX_DATA_SIZE,isData,s->sendingWindow, getSendBufferSize(s) );
 
     struct packet *p = (struct packet*)malloc(sizeof(struct packet));
     makePacket(s,p, isData);
     conn_sendpkt(s->c, p, ntohs(p->len));
+    if(d==1)
+      printf("Packet sent %s with size %d\n",p->data,ntohs(p->len));
+
     s->lastByteSent+=MAX_DATA_SIZE;
     s->seqNum+=1;
+    packetsInFlight[s->lastByteSent/500] = 0;
     free(p);
 
   }
@@ -251,14 +280,9 @@ void rel_output2(rel_t *r, int lenToPrint){
   int success = conn_output(r->c, r->receivingWindow+r->lastByteRead, lenToPrint);
   //everything was printed, send an ack
   if(success == lenToPrint){
-    struct packet *p = (struct packet*)malloc(sizeof(struct packet));
-
-    makeAckPacket(r, p);
-    conn_sendpkt(r->c, p, p->len);
-    free(p);
+    sendAck(r);
     r->lastByteRead+=MAX_DATA_SIZE;
     allignReceivingWindow(r);
-    //to do: delete data after sending ack
 
   }
 }
@@ -266,7 +290,11 @@ void rel_output2(rel_t *r, int lenToPrint){
 void
 rel_timer ()
 {
-  /* Retransmit any packets that need to be retransmitted */
+  // printf("timer called\n");
+  // int i;
+  // for(i=0; i<lastByteSent/500+1; i++){
+
+  // }
 
 }
 
@@ -282,12 +310,14 @@ int getReceiveBufferSize(rel_t *r){
 
 void makePacket(rel_t *s, struct packet *p, int sizeOfData){
   strncpy(p->data,s->sendingWindow+s->lastByteWritten-MAX_DATA_SIZE, sizeOfData);
+  p->data[sizeOfData]='\0';
 
-
-  p->len = htons(sizeof(p->data)+12);
+  p->len = htons(sizeOfData+12);
   p->ackno=htonl(s->nextAckNum);
   p->seqno=htonl(s->seqNum);
-  p->cksum = cksum(p->data, p->len);
+  p->cksum=0;
+  p->cksum = cksum(p, p->len);
+  //to do use actual checksum
   
 }
 
@@ -307,11 +337,33 @@ void allignSendingWindow(rel_t *r){
 }
 
 void allignReceivingWindow(rel_t *r){
+    if(d==1)printf("receiving window alligned now %d %d %d\n", r->lastByteRead, r->nextByteExpected, r->lastByteReceived);
+
   memmove(r->receivingWindow, r->receivingWindow+MAX_DATA_SIZE, r->lastByteRead-r->lastByteReceived);
   r->lastByteRead-=MAX_DATA_SIZE;
   r->nextByteExpected-=MAX_DATA_SIZE;
   r->lastByteReceived-=MAX_DATA_SIZE;
-  if(d==1)printf("receiving window alligned now %d %d %d\n", r->lastByteRead, r->nextByteExpected, r->lastByteReceived);
+}
+
+//check whether a connection should be destroyed. this is only called if we get an EOF or if we get a -1 on read
+int checkDestroy(rel_t *r){
+  //you have no more packets to ack
+  if(r->lastByteAcked == r->lastByteSent){
+    //you have outputed all data
+    if(r->lastByteRead==r->lastByteReceived){
+      if(d==1)printf("chose to destroy!\n");
+      rel_destroy(r);
+      return 1;
+    }
+  }
+  return 0;
+}
+
+void sendAck(rel_t *r){
+  struct packet *p = (struct packet*)malloc(sizeof(struct packet));
+  makeAckPacket(r, p);
+  conn_sendpkt(r->c, p, p->len);
+  free(p);
 }
 
 
