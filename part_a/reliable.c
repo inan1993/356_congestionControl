@@ -108,18 +108,11 @@ void sendPacket(rel_t *s, int isData, int seqNo);
   if (rel_list)
     rel_list->prev = &r->next;
   rel_list = r;
-
-  //ss is null, so this is a client or both. do setup for both client and serer
   
-
-    r->maxWindowSize=(cc->window * MAX_DATA_SIZE);
-    r->sendingWindow=(char*)malloc(r->maxWindowSize * sizeof(char));
-    
-    r->receivingWindow=(char*)malloc(r->maxWindowSize * sizeof(char));
-    r->nextByteExpected=1;
-  
-
-  
+  r->maxWindowSize=(cc->window * MAX_DATA_SIZE);
+  r->sendingWindow=(char*)malloc(r->maxWindowSize * sizeof(char));
+  r->receivingWindow=(char*)malloc(r->maxWindowSize * sizeof(char));
+  r->nextByteExpected=1;
   r->seqNum=1; r->nextAckNum=2; r->nextSeqNum=1;
   srand(time(NULL));
   r->id = rand();
@@ -153,7 +146,6 @@ rel_demux (const struct config_common *cc,
 void
 rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 {
-  isEOF=0;
   //checksum isn't the same. Just drop the packet
   uint16_t tempsum = pkt->cksum;
   pkt->cksum=0;
@@ -176,6 +168,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
       }
       //now we are waiting for the next ack
       r->nextAckNum=ntohl(pkt->ackno)+1;
+      rel_read(r);
     }
   }
   //dataPacket
@@ -189,14 +182,15 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
       r->nextSeqNum+=1;
 
       sendAck(r);
-      if(ntohl(pkt->seqno)>1){
-        isEOF=1;
-
-        checkDestroy(r);
-      }
+      
+      isEOF=1;
+      checkDestroy(r);
+      rel_read(r);
+      
 
       return;
     }
+    isEOF=0;
     //if we've already acked this packet, our ack was lost so ack it again!
     if(ntohl(pkt->seqno)<r->nextSeqNum){
       if(d==1)fprintf(stderr,"reacking cause ack was lost\n");
@@ -226,9 +220,13 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
         //everything is in order, write to output and possibly send acks if we can write!
         rel_output2(r, ntohs(pkt->len)-12);
       }
+    }
+    else{
+      fprintf(stderr, "packet dropped cause no room\n");
     }    
     
   }
+  rel_read(r);
 }
 
 
@@ -236,34 +234,53 @@ void
 rel_read (rel_t *s)
 {
   int isData;
-  isErr=0;
+  fprintf(stderr, "reading\n");
 
   //loop while you still have buffer space to store data
   while(getSendBufferSize(s)>0){
 
     //read data into the sending window at the end
-    isData = conn_input(s->c, s->sendingWindow+s->lastByteWritten,getSendBufferSize(s));
-    
-    //there is no data to receive
-    if(isData==0)
-      return;
-    //you received an error
+    char *temp=(char*)malloc(s->maxWindowSize * sizeof(char));
+    // isData = conn_input(s->c, s->sendingWindow+s->lastByteWritten,getSendBufferSize(s));
+    isData = conn_input(s->c, temp,getSendBufferSize(s));
+     //you received an error or EOF
+
     if(isData==-1){
+      fprintf(stderr, "read EOF\n");
       //check if packet should be destroyed
       isErr=1;
       checkDestroy(s);
+      //send an EOF to the receiver
+      sendPacket(s, 0, s->seqNum);
+      s->seqNum+=1;
+      free(temp);
+      return;
+    }
+    
+    //there is no data to receive
+    if(isData==0){
+      fprintf(stderr, "nothing to read\n");
+      free(temp);
       return;
     }
 
+   
+    isErr=0;
+    strncpy(s->sendingWindow+s->lastByteWritten, temp, isData);
+    free(temp);
+              fprintf(stderr, "reading2\n");
+
     //update the lastByteWritten by the size of one packet
     s->lastByteWritten+=MAX_DATA_SIZE;
-    
+
     // if(d==1)
       // printf("Packet sent %s with size %d and new sw looks like %s with size of %d\n",s->sendingWindow+s->lastByteWritten-MAX_DATA_SIZE,isData,s->sendingWindow, getSendBufferSize(s) );
     sendPacket(s, isData, s->seqNum);
 
     s->lastByteSent+=MAX_DATA_SIZE;
     s->seqNum+=1;
+                  fprintf(stderr, "reading3\n");
+
 
   }
 }
@@ -271,6 +288,7 @@ rel_read (rel_t *s)
 void
 rel_output (rel_t *r)
 {
+  fprintf(stderr, "in output\n");
  rel_output2(r, 500); 
 
 }
@@ -280,7 +298,8 @@ void rel_output2(rel_t *r, int lenToPrint){
   if(conn_bufspace(r->c)<lenToPrint)
     return;
   //there is nothing new to write
-  if(r->lastByteWritten==r->nextByteExpected){
+  if(r->lastByteRead==r->nextByteExpected){
+    fprintf(stderr, "nothing new to write\n");
     return;
   }
 
@@ -290,8 +309,12 @@ void rel_output2(rel_t *r, int lenToPrint){
     sendAck(r);
     r->lastByteRead+=MAX_DATA_SIZE;
     allignReceivingWindow(r);
-
+    
   }
+  else{
+    fprintf(stderr, "not outputed\n");
+  }
+  rel_read(r);
 }
 
 void
@@ -336,16 +359,24 @@ void makeAckPacket(rel_t *s, struct packet *p){
 
 //When an ack is received we want to delete the data that was acked and move the sending window back
 void allignSendingWindow(rel_t *r){
+  //first, delete data that was acked
+  memset(r->sendingWindow, 0, MAX_DATA_SIZE);
+  //then move rest of data back. If window is 1, this won't do anything.
+
   memmove(r->sendingWindow, r->sendingWindow+MAX_DATA_SIZE, r->lastByteWritten-r->lastByteAcked);
   r->lastByteWritten-=MAX_DATA_SIZE;
   r->lastByteAcked-=MAX_DATA_SIZE;
   r->lastByteSent-=MAX_DATA_SIZE;
+        // if(d==1)fprintf(stderr,"sending window alligned now %d %d %d\n", r->lastByteAcked, r->lastByteSent, r->lastByteWritten);
+
   
 }
 
 void allignReceivingWindow(rel_t *r){
-    // if(d==1)printf("receiving window alligned now %d %d %d\n", r->lastByteRead, r->nextByteExpected, r->lastByteReceived);
-
+    // if(d==1)fprintf(stderr,"receiving window alligned now %d %d %d\n", r->lastByteRead, r->nextByteExpected, r->lastByteReceived);
+  //first, delete what we just wrote
+  memset(r->receivingWindow, 0, MAX_DATA_SIZE);
+  //then move rest of data back. If window is 1, this won't do anything.
   memmove(r->receivingWindow, r->receivingWindow+MAX_DATA_SIZE, r->lastByteRead-r->lastByteReceived);
   r->lastByteRead-=MAX_DATA_SIZE;
   r->nextByteExpected-=MAX_DATA_SIZE;
@@ -355,9 +386,10 @@ void allignReceivingWindow(rel_t *r){
 
 //check whether a connection should be destroyed. this is only called if we get an EOF or if we get a -1 on read
 int checkDestroy(rel_t *r){
-  fprintf(stderr, "checking to destroy\n");
+  fprintf(stderr, "checking to destroy %d %d\n", isErr, isEOF);
   //you have no more packets to ack
   if(isErr==1 && isEOF==1){
+    fprintf(stderr, "first two\n");
     if(r->lastByteAcked == r->lastByteSent){
       //you have outputed all data
       if(r->lastByteRead==r->lastByteReceived){
@@ -385,6 +417,8 @@ void sendPacket(rel_t *s, int dataSize, int seqNo){
   makePacket(s,p, dataSize, seqNo);
 
   struct packet_info *pinfo = (struct packet_info*)malloc(sizeof(struct packet_info));
+  pinfo->r =  malloc (sizeof (*s));
+  memset (pinfo->r, 0, sizeof (*s));
   pinfo->r=s;
   pinfo->size=dataSize;
   pinfo->ackNo = s->nextAckNum;
@@ -392,7 +426,7 @@ void sendPacket(rel_t *s, int dataSize, int seqNo){
 
   pthread_t tid;
   pthread_create(&tid, NULL, timer,(void *) pinfo);
-   
+
 
   conn_sendpkt(s->c, p, ntohs(p->len));
   if(d==1)
