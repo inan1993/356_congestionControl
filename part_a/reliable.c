@@ -16,7 +16,7 @@
 
 #include "rlib.h"
 #define MAX_DATA_SIZE 500
-#define d 1
+#define d 2
 
 int packetsInFlight[500]={0};
 
@@ -108,7 +108,7 @@ void sendPacket(rel_t *s, int isData, int seqNo);
   if (rel_list)
     rel_list->prev = &r->next;
   rel_list = r;
-  
+  if(d==2)fprintf(stderr, "window size: %d\n", cc->window);
   r->maxWindowSize=(cc->window * MAX_DATA_SIZE);
   r->sendingWindow=(char*)malloc(r->maxWindowSize * sizeof(char));
   r->receivingWindow=(char*)malloc(r->maxWindowSize * sizeof(char));
@@ -127,7 +127,7 @@ rel_destroy (rel_t *r)
     r->next->prev = r->prev;
   *r->prev = r->next;
   conn_destroy (r->c);
-  fprintf(stderr, "connection destroyed!\n");
+  if(d==1)fprintf(stderr, "connection destroyed!\n");
 
   free(r->sendingWindow);
   free(r->receivingWindow);
@@ -146,6 +146,7 @@ rel_demux (const struct config_common *cc,
 void
 rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 {
+  if(d==1)fprintf(stderr, "random n variable: %d pkt len: %d\n", n, ntohs(pkt->len));
   //checksum isn't the same. Just drop the packet
   uint16_t tempsum = pkt->cksum;
   pkt->cksum=0;
@@ -166,7 +167,6 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
       for(j=0; j<ntohl(pkt->ackno) - r->nextAckNum+1; j++){
         r->lastByteAcked+=MAX_DATA_SIZE;
         allignSendingWindow(r);
-
       }
 
       //now we are waiting for the next ack
@@ -177,7 +177,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
   //dataPacket
   else{
     if(d==1)
-      fprintf(stderr,"id %d received data packet of length %d seq %d\n", r->id,ntohs(pkt->len), ntohl(pkt->seqno));
+      if(d==1)fprintf(stderr,"id %d received data packet of length %d seq %d\n", r->id,ntohs(pkt->len), ntohl(pkt->seqno));
 
     //if we've received an EOF, check if we should destroy the connection
     if(ntohs(pkt->len) == 12){
@@ -225,7 +225,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
     
   }
 }
-
+int num;
 
 void
 rel_read (rel_t *s)
@@ -233,41 +233,47 @@ rel_read (rel_t *s)
   int isData;
   if(readEOF==1)return;
   // if(s->nextAckNum==s->seqNum)return;
-  fprintf(stderr, "reading\n");
+  if(d==1)fprintf(stderr, "reading\n");
 
   //loop while you still have buffer space to store data
   while(getSendBufferSize(s)>0){
 
     //read data into the sending window at the end
     char *temp=(char*)malloc(s->maxWindowSize * sizeof(char));
-    // isData = conn_input(s->c, s->sendingWindow+s->lastByteWritten,getSendBufferSize(s));
+    //isData = conn_input(s->c, s->sendingWindow+s->lastByteWritten,getSendBufferSize(s));
+
     isData = conn_input(s->c, temp,getSendBufferSize(s));
      //you received an error or EOF
 
     if(isData==-1){
-      fprintf(stderr, "read EOF\n");
+      if(d==1)fprintf(stderr, "read EOF\n");
       //send EOF to receiver
       readEOF=1;
       sendPacket(s, 0, s->seqNum);
       // sendAck(s);
       free(temp);
+      //s->lastByteWritten+=MAX_DATA_SIZE;
+
       return;
     }
     
     //there is no data to receive
     if(isData==0){
-      fprintf(stderr, "nothing to read\n");
+      if(d==1)fprintf(stderr, "nothing to read\n");
       free(temp);
       return;
     }
-    fprintf(stderr, "Something read\n" );
+    num+=1;
+    if(d==1)fprintf(stderr, "number of reads: %d\n", num);
+    if(d==1)fprintf(stderr, "Something read\n" );
 
    
     strncpy(s->sendingWindow+s->lastByteWritten, temp, isData);
     free(temp);
+    s->lastByteWritten+=MAX_DATA_SIZE;
+
 
     //update the lastByteWritten by the size of one packet
-    s->lastByteWritten+=MAX_DATA_SIZE;
 
     // if(d==1)
       // printf("Packet sent %s with size %d and new sw looks like %s with size of %d\n",s->sendingWindow+s->lastByteWritten-MAX_DATA_SIZE,isData,s->sendingWindow, getSendBufferSize(s) );
@@ -302,7 +308,7 @@ void rel_output2(rel_t *r, int lenToPrint){
   int success = conn_output(r->c, r->receivingWindow+r->lastByteRead, lenToPrint);
   //everything was printed, send an ack
   if(success == lenToPrint){
-    fprintf(stderr, "outputted\n");
+    if(d==1)fprintf(stderr, "outputted\n");
     sendAck(r);
     r->lastByteRead+=MAX_DATA_SIZE;
     allignReceivingWindow(r);
@@ -336,9 +342,9 @@ int getReceiveBufferSize(rel_t *r){
 }
 
 void makePacket(rel_t *s, struct packet *p, int sizeOfData, int seqno){
-  strncpy(p->data,s->sendingWindow+s->lastByteWritten-MAX_DATA_SIZE, sizeOfData);
-  p->data[sizeOfData]='\0';
+  //p->data=char [sizeOfData+1];
 
+  strncpy(p->data,s->sendingWindow+s->lastByteWritten-MAX_DATA_SIZE, sizeOfData);
   p->len = htons(sizeOfData+12);
   p->ackno=htonl(s->nextAckNum);
   p->seqno=htonl(seqno);
@@ -359,7 +365,7 @@ void allignSendingWindow(rel_t *r){
   //first, delete data that was acked
   memset(r->sendingWindow, 0, MAX_DATA_SIZE);
   //then move rest of data back. If window is 1, this won't do anything.
-
+  if(d==1)fprintf(stderr, "%d\n",r->lastByteWritten-r->lastByteAcked);
   memmove(r->sendingWindow, r->sendingWindow+MAX_DATA_SIZE, r->lastByteWritten-r->lastByteAcked);
   r->lastByteWritten-=MAX_DATA_SIZE;
   r->lastByteAcked-=MAX_DATA_SIZE;
@@ -381,7 +387,7 @@ void allignReceivingWindow(rel_t *r){
 
 //check whether a connection should be destroyed. this is only called if we get an EOF or if we get a -1 on read
 int checkDestroy(rel_t *r){
-  fprintf(stderr, "checking to destroy %d %d\n", recEOF, readEOF);
+  if(d==1)fprintf(stderr, "checking to destroy %d %d\n", recEOF, readEOF);
   //you have no more packets to ack
   if(readEOF==1 && recEOF==1){
     fprintf(stderr, "first two\n");
@@ -389,7 +395,7 @@ int checkDestroy(rel_t *r){
       //you have outputed all data
       if(r->lastByteRead==r->lastByteReceived){
         if(d==1)fprintf(stderr,"chose to destroy!\n");
-        // rel_destroy(r);
+        rel_destroy(r);
         return 1;
       }
     }
@@ -400,8 +406,8 @@ int checkDestroy(rel_t *r){
 void sendAck(rel_t *r){
   struct packet *p = (struct packet*)malloc(sizeof(struct packet));
   makeAckPacket(r, p);
-  conn_sendpkt(r->c, p, p->len);
-  if(d==1)fprintf(stderr, "id %d sent ack %d\n", r->id, r->nextSeqNum);
+  conn_sendpkt(r->c, p, ntohs(p->len));
+  if(d==1)fprintf(stderr, "id %d sent ack %d size %d\n", r->id, r->nextSeqNum,ntohs(p->len));
 
   free(p);
 }
