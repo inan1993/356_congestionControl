@@ -28,3 +28,5 @@ sendAck(r);
     if(d==1)fprintf(stderr, "need to retransmit! %d\n", seqNo);
     sendPacket(r,size, seqNo);
   }
+
+IF EOF ACK IS LOST WE SO FUUUCCKKKEEDDD BRO

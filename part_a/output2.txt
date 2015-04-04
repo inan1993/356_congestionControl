@@ -1,0 +1,1670 @@
+TEST  1:  Bi-directionally transfer data...                           [listening on UDP port 48259]
+[listening on UDP port 58679]
+id 649115822 received data packet of length 512 seq 1
+outputted
+id 649115822 sent ack 2
+id 649115822 received data packet of length 512 seq 2
+outputted
+id 649115822 sent ack 3
+id 649115822 received data packet of length 512 seq 3
+outputted
+id 649115822 sent ack 4
+id 649115822 received data packet of length 512 seq 4
+outputted
+id 649115822 sent ack 5
+id 649115822 received data packet of length 512 seq 5
+outputted
+id 649115822 sent ack 6
+id 649115822 received data packet of length 512 seq 6
+outputted
+id 649115822 sent ack 7
+id 649115822 received data packet of length 512 seq 7
+outputted
+id 649115822 sent ack 8
+id 649115822 received data packet of length 512 seq 8
+outputted
+id 649115822 sent ack 9
+id 649115822 received data packet of length 512 seq 9
+outputted
+id 649115822 sent ack 10
+id 649115822 received data packet of length 512 seq 10
+outputted
+id 649115822 sent ack 11
+id 649115822 received data packet of length 512 seq 11
+outputted
+id 649115822 sent ack 12
+id 649115822 received data packet of length 512 seq 12
+outputted
+id 649115822 sent ack 13
+id 649115822 received data packet of length 512 seq 13
+outputted
+id 649115822 sent ack 14
+id 649115822 received data packet of length 512 seq 14
+outputted
+id 649115822 sent ack 15
+id 649115822 received data packet of length 512 seq 15
+outputted
+id 649115822 sent ack 16
+id 649115822 received data packet of length 512 seq 16
+outputted
+id 649115822 sent ack 17
+id 649115822 received data packet of length 512 seq 17
+outputted
+id 649115822 sent ack 18
+id 649115822 received data packet of length 512 seq 18
+outputted
+id 649115822 sent ack 19
+id 649115822 received data packet of length 512 seq 19
+outputted
+id 649115822 sent ack 20
+id 649115822 received data packet of length 512 seq 20
+outputted
+id 649115822 sent ack 21
+id 649115822 received data packet of length 512 seq 21
+outputted
+id 649115822 sent ack 22
+id 649115822 received data packet of length 512 seq 22
+outputted
+id 649115822 sent ack 23
+id 649115822 received data packet of length 512 seq 23
+outputted
+id 649115822 sent ack 24
+id 649115822 received data packet of length 512 seq 24
+outputted
+id 649115822 sent ack 25
+id 649115822 received data packet of length 512 seq 25
+outputted
+id 649115822 sent ack 26
+id 649115822 received data packet of length 512 seq 26
+outputted
+id 649115822 sent ack 27
+id 649115822 received data packet of length 512 seq 27
+outputted
+id 649115822 sent ack 28
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 1
+sendPackt
+reading
+id 649115822 received ack packet 2 length 8
+pack ackno: 2, nextAckNum: 2checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 2
+sendPackt
+reading
+id 649115822 received ack packet 3 length 8
+pack ackno: 3, nextAckNum: 3checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 3
+sendPackt
+reading
+id 649115822 received ack packet 4 length 8
+pack ackno: 4, nextAckNum: 4checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 4
+sendPackt
+reading
+id 649115822 received ack packet 5 length 8
+pack ackno: 5, nextAckNum: 5checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 5
+sendPackt
+reading
+id 649115822 received ack packet 6 length 8
+pack ackno: 6, nextAckNum: 6checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 6
+sendPackt
+reading
+id 649115822 received ack packet 7 length 8
+pack ackno: 7, nextAckNum: 7checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 7
+sendPackt
+reading
+id 649115822 received ack packet 8 length 8
+pack ackno: 8, nextAckNum: 8checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 8
+sendPackt
+reading
+id 649115822 received ack packet 9 length 8
+pack ackno: 9, nextAckNum: 9checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 9
+sendPackt
+reading
+id 649115822 received ack packet 10 length 8
+pack ackno: 10, nextAckNum: 10checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 10
+sendPackt
+reading
+id 649115822 received ack packet 11 length 8
+pack ackno: 11, nextAckNum: 11checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 11
+sendPackt
+reading
+id 649115822 received ack packet 12 length 8
+pack ackno: 12, nextAckNum: 12checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 12
+sendPackt
+reading
+id 649115822 received ack packet 13 length 8
+pack ackno: 13, nextAckNum: 13checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 13
+sendPackt
+reading
+id 649115822 received ack packet 14 length 8
+pack ackno: 14, nextAckNum: 14checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 14
+sendPackt
+reading
+id 649115822 received ack packet 15 length 8
+pack ackno: 15, nextAckNum: 15checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 15
+sendPackt
+reading
+id 649115822 received ack packet 16 length 8
+pack ackno: 16, nextAckNum: 16checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 16
+sendPackt
+reading
+id 649115822 received ack packet 17 length 8
+pack ackno: 17, nextAckNum: 17checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 17
+sendPackt
+reading
+id 649115822 received ack packet 18 length 8
+pack ackno: 18, nextAckNum: 18checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 18
+sendPackt
+reading
+id 649115822 received ack packet 19 length 8
+pack ackno: 19, nextAckNum: 19checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 19
+sendPackt
+reading
+id 649115822 received ack packet 20 length 8
+pack ackno: 20, nextAckNum: 20checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 20
+sendPackt
+reading
+id 649115822 received ack packet 21 length 8
+pack ackno: 21, nextAckNum: 21checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 21
+sendPackt
+reading
+id 649115822 received ack packet 22 length 8
+pack ackno: 22, nextAckNum: 22checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 22
+sendPackt
+reading
+id 649115822 received ack packet 23 length 8
+pack ackno: 23, nextAckNum: 23checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 23
+sendPackt
+reading
+id 649115822 received ack packet 24 length 8
+pack ackno: 24, nextAckNum: 24checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 24
+sendPackt
+reading
+id 649115822 received ack packet 25 length 8
+pack ackno: 25, nextAckNum: 25checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 25
+sendPackt
+reading
+id 649115822 received ack packet 26 length 8
+pack ackno: 26, nextAckNum: 26checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 26
+sendPackt
+reading
+id 649115822 received ack packet 27 length 8
+pack ackno: 27, nextAckNum: 27checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 27
+sendPackt
+reading
+id 649115822 received ack packet 28 length 8
+pack ackno: 28, nextAckNum: 28checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 28
+sendPackt
+reading
+id 649115822 received data packet of length 512 seq 28
+outputted
+id 649115822 sent ack 29
+id 649115822 received data packet of length 512 seq 29
+outputted
+id 649115822 sent ack 30
+id 649115822 received data packet of length 512 seq 30
+outputted
+id 649115822 sent ack 31
+id 649115822 received data packet of length 512 seq 31
+outputted
+id 649115822 sent ack 32
+id 649115822 received data packet of length 512 seq 32
+outputted
+id 649115822 sent ack 33
+id 649115822 received data packet of length 512 seq 33
+outputted
+id 649115822 sent ack 34
+id 649115822 received data packet of length 512 seq 34
+outputted
+id 649115822 sent ack 35
+id 649115822 received data packet of length 512 seq 35
+outputted
+id 649115822 sent ack 36
+id 649115822 received data packet of length 512 seq 36
+outputted
+id 649115822 sent ack 37
+id 649115822 received data packet of length 512 seq 37
+outputted
+id 649115822 sent ack 38
+id 649115822 received data packet of length 512 seq 38
+outputted
+id 649115822 sent ack 39
+id 649115822 received data packet of length 512 seq 39
+outputted
+id 649115822 sent ack 40
+id 649115822 received data packet of length 512 seq 40
+outputted
+id 649115822 sent ack 41
+id 649115822 received data packet of length 512 seq 41
+outputted
+id 649115822 sent ack 42
+id 649115822 received data packet of length 512 seq 42
+outputted
+id 649115822 sent ack 43
+id 649115822 received data packet of length 512 seq 43
+outputted
+id 649115822 sent ack 44
+id 649115822 received data packet of length 512 seq 44
+outputted
+id 649115822 sent ack 45
+id 649115822 received data packet of length 512 seq 45
+outputted
+id 649115822 sent ack 46
+id 649115822 received data packet of length 512 seq 46
+outputted
+id 649115822 sent ack 47
+id 649115822 received data packet of length 512 seq 47
+outputted
+id 649115822 sent ack 48
+id 649115822 received data packet of length 512 seq 48
+outputted
+id 649115822 sent ack 49
+id 649115822 received data packet of length 512 seq 49
+outputted
+id 649115822 sent ack 50
+id 649115822 received data packet of length 512 seq 50
+outputted
+id 649115822 sent ack 51
+id 649115822 received data packet of length 512 seq 51
+outputted
+id 649115822 sent ack 52
+id 649115822 received data packet of length 512 seq 52
+outputted
+id 649115822 sent ack 53
+id 649115822 received data packet of length 512 seq 53
+outputted
+id 649115822 sent ack 54
+id 649115822 received data packet of length 512 seq 54
+outputted
+id 649115822 sent ack 55
+id 649115822 received data packet of length 512 seq 55
+outputted
+id 649115822 sent ack 56
+id 649115822 received data packet of length 512 seq 56
+outputted
+id 649115822 sent ack 57
+id 649115822 received data packet of length 512 seq 57
+outputted
+id 649115822 sent ack 58
+id 649115822 received data packet of length 512 seq 58
+outputted
+id 649115822 sent ack 59
+id 649115822 received data packet of length 512 seq 59
+outputted
+id 649115822 sent ack 60
+id 649115822 received data packet of length 512 seq 60
+outputted
+id 649115822 sent ack 61
+id 649115822 received data packet of length 512 seq 61
+outputted
+id 649115822 sent ack 62
+id 649115822 received data packet of length 512 seq 62
+outputted
+id 649115822 sent ack 63
+id 649115822 received data packet of length 512 seq 63
+outputted
+id 649115822 sent ack 64
+id 649115822 received ack packet 29 length 8
+pack ackno: 29, nextAckNum: 29checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 29
+sendPackt
+reading
+id 649115822 received ack packet 30 length 8
+pack ackno: 30, nextAckNum: 30checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 30
+sendPackt
+reading
+id 649115822 received ack packet 31 length 8
+pack ackno: 31, nextAckNum: 31checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 31
+sendPackt
+reading
+id 649115822 received ack packet 32 length 8
+pack ackno: 32, nextAckNum: 32checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 32
+sendPackt
+reading
+id 649115822 received ack packet 33 length 8
+pack ackno: 33, nextAckNum: 33checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 33
+sendPackt
+reading
+id 649115822 received ack packet 34 length 8
+pack ackno: 34, nextAckNum: 34checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 34
+sendPackt
+reading
+id 649115822 received ack packet 35 length 8
+pack ackno: 35, nextAckNum: 35checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 35
+sendPackt
+reading
+id 649115822 received ack packet 36 length 8
+pack ackno: 36, nextAckNum: 36checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 36
+sendPackt
+reading
+id 649115822 received ack packet 37 length 8
+pack ackno: 37, nextAckNum: 37checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 37
+sendPackt
+reading
+id 649115822 received ack packet 38 length 8
+pack ackno: 38, nextAckNum: 38checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 38
+sendPackt
+reading
+id 649115822 received ack packet 39 length 8
+pack ackno: 39, nextAckNum: 39checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 39
+sendPackt
+reading
+id 649115822 received ack packet 40 length 8
+pack ackno: 40, nextAckNum: 40checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 40
+sendPackt
+reading
+id 649115822 received ack packet 41 length 8
+pack ackno: 41, nextAckNum: 41checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 41
+sendPackt
+reading
+id 649115822 received ack packet 42 length 8
+pack ackno: 42, nextAckNum: 42checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 42
+sendPackt
+reading
+id 649115822 received ack packet 43 length 8
+pack ackno: 43, nextAckNum: 43checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 43
+sendPackt
+reading
+id 649115822 received ack packet 44 length 8
+pack ackno: 44, nextAckNum: 44checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 44
+sendPackt
+reading
+id 649115822 received ack packet 45 length 8
+pack ackno: 45, nextAckNum: 45checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 45
+sendPackt
+reading
+id 649115822 received ack packet 46 length 8
+pack ackno: 46, nextAckNum: 46checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 46
+sendPackt
+reading
+id 649115822 received ack packet 47 length 8
+pack ackno: 47, nextAckNum: 47checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 47
+sendPackt
+reading
+id 649115822 received ack packet 48 length 8
+pack ackno: 48, nextAckNum: 48checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 48
+sendPackt
+reading
+id 649115822 received ack packet 49 length 8
+pack ackno: 49, nextAckNum: 49checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 49
+sendPackt
+reading
+id 649115822 received ack packet 50 length 8
+pack ackno: 50, nextAckNum: 50checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 50
+sendPackt
+reading
+id 649115822 received ack packet 51 length 8
+pack ackno: 51, nextAckNum: 51checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 51
+sendPackt
+reading
+id 649115822 received ack packet 52 length 8
+pack ackno: 52, nextAckNum: 52checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 52
+sendPackt
+reading
+id 649115822 received ack packet 53 length 8
+pack ackno: 53, nextAckNum: 53checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 53
+sendPackt
+reading
+id 649115822 received ack packet 54 length 8
+pack ackno: 54, nextAckNum: 54checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 54
+sendPackt
+reading
+id 649115822 received ack packet 55 length 8
+pack ackno: 55, nextAckNum: 55checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 55
+sendPackt
+reading
+id 649115822 received ack packet 56 length 8
+pack ackno: 56, nextAckNum: 56checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 56
+sendPackt
+reading
+id 649115822 received ack packet 57 length 8
+pack ackno: 57, nextAckNum: 57checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 57
+sendPackt
+reading
+id 649115822 received ack packet 58 length 8
+pack ackno: 58, nextAckNum: 58checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 58
+sendPackt
+reading
+id 649115822 received ack packet 59 length 8
+pack ackno: 59, nextAckNum: 59checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 59
+sendPackt
+reading
+id 649115822 received ack packet 60 length 8
+pack ackno: 60, nextAckNum: 60checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 60
+sendPackt
+reading
+id 649115822 received ack packet 61 length 8
+pack ackno: 61, nextAckNum: 61checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 61
+sendPackt
+reading
+id 649115822 received ack packet 62 length 8
+pack ackno: 62, nextAckNum: 62checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 62
+sendPackt
+reading
+id 649115822 received ack packet 63 length 8
+pack ackno: 63, nextAckNum: 63checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 63
+sendPackt
+reading
+id 649115822 received ack packet 64 length 8
+pack ackno: 64, nextAckNum: 64checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 64
+sendPackt
+reading
+id 649115822 received data packet of length 512 seq 64
+outputted
+id 649115822 sent ack 65
+id 649115822 received data packet of length 512 seq 65
+outputted
+id 649115822 sent ack 66
+id 649115822 received data packet of length 264 seq 66
+outputted
+id 649115822 sent ack 67
+id 649115822 received ack packet 65 length 8
+pack ackno: 65, nextAckNum: 65checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 65
+sendPackt
+reading
+id 649115822 received ack packet 66 length 8
+pack ackno: 66, nextAckNum: 66checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 264 and seqno 66
+sendPackt
+id 649115822 received ack packet 67 length 8
+pack ackno: 67, nextAckNum: 67checking to destroy 0 0
+reading
+nothing to read
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 1
+sendPackt
+reading
+id 649115822 received data packet of length 512 seq 1
+outputted
+id 649115822 sent ack 2
+id 649115822 received data packet of length 512 seq 2
+outputted
+id 649115822 sent ack 3
+id 649115822 received data packet of length 512 seq 3
+outputted
+id 649115822 sent ack 4
+id 649115822 received data packet of length 512 seq 4
+outputted
+id 649115822 sent ack 5
+id 649115822 received data packet of length 512 seq 5
+outputted
+id 649115822 sent ack 6
+id 649115822 received data packet of length 512 seq 6
+outputted
+id 649115822 sent ack 7
+id 649115822 received data packet of length 512 seq 7
+outputted
+id 649115822 sent ack 8
+id 649115822 received data packet of length 512 seq 8
+outputted
+id 649115822 sent ack 9
+id 649115822 received data packet of length 512 seq 9
+outputted
+id 649115822 sent ack 10
+id 649115822 received data packet of length 512 seq 10
+outputted
+id 649115822 sent ack 11
+id 649115822 received data packet of length 512 seq 11
+outputted
+id 649115822 sent ack 12
+id 649115822 received data packet of length 512 seq 12
+outputted
+id 649115822 sent ack 13
+id 649115822 received data packet of length 512 seq 13
+outputted
+id 649115822 sent ack 14
+id 649115822 received data packet of length 512 seq 14
+outputted
+id 649115822 sent ack 15
+id 649115822 received data packet of length 512 seq 15
+outputted
+id 649115822 sent ack 16
+id 649115822 received data packet of length 512 seq 16
+outputted
+id 649115822 sent ack 17
+id 649115822 received data packet of length 512 seq 17
+outputted
+id 649115822 sent ack 18
+id 649115822 received data packet of length 512 seq 18
+outputted
+id 649115822 sent ack 19
+id 649115822 received data packet of length 512 seq 19
+outputted
+id 649115822 sent ack 20
+id 649115822 received data packet of length 512 seq 20
+outputted
+id 649115822 sent ack 21
+id 649115822 received data packet of length 512 seq 21
+outputted
+id 649115822 sent ack 22
+id 649115822 received data packet of length 512 seq 22
+outputted
+id 649115822 sent ack 23
+id 649115822 received ack packet 2 length 8
+pack ackno: 2, nextAckNum: 2checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 2
+sendPackt
+reading
+id 649115822 received ack packet 3 length 8
+pack ackno: 3, nextAckNum: 3checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 3
+sendPackt
+reading
+id 649115822 received ack packet 4 length 8
+pack ackno: 4, nextAckNum: 4checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 4
+sendPackt
+reading
+id 649115822 received ack packet 5 length 8
+pack ackno: 5, nextAckNum: 5checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 5
+sendPackt
+reading
+id 649115822 received ack packet 6 length 8
+pack ackno: 6, nextAckNum: 6checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 6
+sendPackt
+reading
+id 649115822 received ack packet 7 length 8
+pack ackno: 7, nextAckNum: 7checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 7
+sendPackt
+reading
+id 649115822 received ack packet 8 length 8
+pack ackno: 8, nextAckNum: 8checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 8
+sendPackt
+reading
+id 649115822 received ack packet 9 length 8
+pack ackno: 9, nextAckNum: 9checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 9
+sendPackt
+reading
+id 649115822 received ack packet 10 length 8
+pack ackno: 10, nextAckNum: 10checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 10
+sendPackt
+reading
+id 649115822 received ack packet 11 length 8
+pack ackno: 11, nextAckNum: 11checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 11
+sendPackt
+reading
+id 649115822 received ack packet 12 length 8
+pack ackno: 12, nextAckNum: 12checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 12
+sendPackt
+reading
+id 649115822 received ack packet 13 length 8
+pack ackno: 13, nextAckNum: 13checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 13
+sendPackt
+reading
+id 649115822 received ack packet 14 length 8
+pack ackno: 14, nextAckNum: 14checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 14
+sendPackt
+reading
+id 649115822 received ack packet 15 length 8
+pack ackno: 15, nextAckNum: 15checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 15
+sendPackt
+reading
+id 649115822 received ack packet 16 length 8
+pack ackno: 16, nextAckNum: 16checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 16
+sendPackt
+reading
+id 649115822 received ack packet 17 length 8
+pack ackno: 17, nextAckNum: 17checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 17
+sendPackt
+reading
+id 649115822 received ack packet 18 length 8
+pack ackno: 18, nextAckNum: 18checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 18
+sendPackt
+reading
+id 649115822 received ack packet 19 length 8
+pack ackno: 19, nextAckNum: 19checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 19
+sendPackt
+reading
+id 649115822 received ack packet 20 length 8
+pack ackno: 20, nextAckNum: 20checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 20
+sendPackt
+reading
+id 649115822 received ack packet 21 length 8
+pack ackno: 21, nextAckNum: 21checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 21
+sendPackt
+reading
+id 649115822 received ack packet 22 length 8
+pack ackno: 22, nextAckNum: 22checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 22
+sendPackt
+reading
+id 649115822 received ack packet 23 length 8
+pack ackno: 23, nextAckNum: 23checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 23
+sendPackt
+reading
+id 649115822 received ack packet 24 length 8
+pack ackno: 24, nextAckNum: 24checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 24
+sendPackt
+reading
+id 649115822 received ack packet 25 length 8
+pack ackno: 25, nextAckNum: 25checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 25
+sendPackt
+reading
+id 649115822 received ack packet 26 length 8
+pack ackno: 26, nextAckNum: 26checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 26
+sendPackt
+reading
+id 649115822 received ack packet 27 length 8
+pack ackno: 27, nextAckNum: 27checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 27
+sendPackt
+reading
+id 649115822 received ack packet 28 length 8
+pack ackno: 28, nextAckNum: 28checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 28
+sendPackt
+reading
+id 649115822 received ack packet 29 length 8
+pack ackno: 29, nextAckNum: 29checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 29
+sendPackt
+reading
+id 649115822 received ack packet 30 length 8
+pack ackno: 30, nextAckNum: 30checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 30
+sendPackt
+reading
+id 649115822 received ack packet 31 length 8
+pack ackno: 31, nextAckNum: 31checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 31
+sendPackt
+reading
+id 649115822 received ack packet 32 length 8
+pack ackno: 32, nextAckNum: 32checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 32
+sendPackt
+reading
+id 649115822 received ack packet 33 length 8
+pack ackno: 33, nextAckNum: 33checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 33
+sendPackt
+reading
+id 649115822 received ack packet 34 length 8
+pack ackno: 34, nextAckNum: 34checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 34
+sendPackt
+reading
+id 649115822 received ack packet 35 length 8
+pack ackno: 35, nextAckNum: 35checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 35
+sendPackt
+reading
+id 649115822 received ack packet 36 length 8
+pack ackno: 36, nextAckNum: 36checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 36
+sendPackt
+reading
+id 649115822 received ack packet 37 length 8
+pack ackno: 37, nextAckNum: 37checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 37
+sendPackt
+reading
+id 649115822 received ack packet 38 length 8
+pack ackno: 38, nextAckNum: 38checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 38
+sendPackt
+reading
+id 649115822 received ack packet 39 length 8
+pack ackno: 39, nextAckNum: 39checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 39
+sendPackt
+reading
+id 649115822 received ack packet 40 length 8
+pack ackno: 40, nextAckNum: 40checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 40
+sendPackt
+reading
+id 649115822 received ack packet 41 length 8
+pack ackno: 41, nextAckNum: 41checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 41
+sendPackt
+reading
+id 649115822 received ack packet 42 length 8
+pack ackno: 42, nextAckNum: 42checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 42
+sendPackt
+reading
+id 649115822 received ack packet 43 length 8
+pack ackno: 43, nextAckNum: 43checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 43
+sendPackt
+reading
+id 649115822 received ack packet 44 length 8
+pack ackno: 44, nextAckNum: 44checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 44
+sendPackt
+reading
+id 649115822 received ack packet 45 length 8
+pack ackno: 45, nextAckNum: 45checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 45
+sendPackt
+reading
+id 649115822 received ack packet 46 length 8
+pack ackno: 46, nextAckNum: 46checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 46
+sendPackt
+reading
+id 649115822 received ack packet 47 length 8
+pack ackno: 47, nextAckNum: 47checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 47
+sendPackt
+reading
+id 649115822 received ack packet 48 length 8
+pack ackno: 48, nextAckNum: 48checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 48
+sendPackt
+reading
+id 649115822 received ack packet 49 length 8
+pack ackno: 49, nextAckNum: 49checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 49
+sendPackt
+reading
+id 649115822 received ack packet 50 length 8
+pack ackno: 50, nextAckNum: 50checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 50
+sendPackt
+reading
+id 649115822 received ack packet 51 length 8
+pack ackno: 51, nextAckNum: 51checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 51
+sendPackt
+reading
+id 649115822 received ack packet 52 length 8
+pack ackno: 52, nextAckNum: 52checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 52
+sendPackt
+reading
+id 649115822 received ack packet 53 length 8
+pack ackno: 53, nextAckNum: 53checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 53
+sendPackt
+reading
+id 649115822 received ack packet 54 length 8
+pack ackno: 54, nextAckNum: 54checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 54
+sendPackt
+reading
+id 649115822 received ack packet 55 length 8
+pack ackno: 55, nextAckNum: 55checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 55
+sendPackt
+reading
+id 649115822 received ack packet 56 length 8
+pack ackno: 56, nextAckNum: 56checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 56
+sendPackt
+reading
+id 649115822 received ack packet 57 length 8
+pack ackno: 57, nextAckNum: 57checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 57
+sendPackt
+reading
+id 649115822 received ack packet 58 length 8
+pack ackno: 58, nextAckNum: 58checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 58
+sendPackt
+reading
+id 649115822 received ack packet 59 length 8
+pack ackno: 59, nextAckNum: 59checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 59
+sendPackt
+reading
+id 649115822 received ack packet 60 length 8
+pack ackno: 60, nextAckNum: 60checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 60
+sendPackt
+reading
+id 649115822 received ack packet 61 length 8
+pack ackno: 61, nextAckNum: 61checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 61
+sendPackt
+reading
+id 649115822 received ack packet 62 length 8
+pack ackno: 62, nextAckNum: 62checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 62
+sendPackt
+reading
+id 649115822 received ack packet 63 length 8
+pack ackno: 63, nextAckNum: 63checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 63
+sendPackt
+reading
+id 649115822 received ack packet 64 length 8
+pack ackno: 64, nextAckNum: 64checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 64
+sendPackt
+reading
+id 649115822 received ack packet 65 length 8
+pack ackno: 65, nextAckNum: 65checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 65
+sendPackt
+reading
+id 649115822 received ack packet 66 length 8
+pack ackno: 66, nextAckNum: 66checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 264 and seqno 66
+sendPackt
+id 649115822 received ack packet 67 length 8
+pack ackno: 67, nextAckNum: 67checking to destroy 0 0
+reading
+nothing to read
+id 649115822 received data packet of length 512 seq 23
+outputted
+id 649115822 sent ack 24
+id 649115822 received data packet of length 512 seq 24
+outputted
+id 649115822 sent ack 25
+id 649115822 received data packet of length 512 seq 25
+outputted
+id 649115822 sent ack 26
+id 649115822 received data packet of length 512 seq 26
+outputted
+id 649115822 sent ack 27
+id 649115822 received data packet of length 512 seq 27
+outputted
+id 649115822 sent ack 28
+id 649115822 received data packet of length 512 seq 28
+outputted
+id 649115822 sent ack 29
+id 649115822 received data packet of length 512 seq 29
+outputted
+id 649115822 sent ack 30
+id 649115822 received data packet of length 512 seq 30
+outputted
+id 649115822 sent ack 31
+id 649115822 received data packet of length 512 seq 31
+outputted
+id 649115822 sent ack 32
+id 649115822 received data packet of length 512 seq 32
+outputted
+id 649115822 sent ack 33
+id 649115822 received data packet of length 512 seq 33
+outputted
+id 649115822 sent ack 34
+id 649115822 received data packet of length 512 seq 34
+outputted
+id 649115822 sent ack 35
+id 649115822 received data packet of length 512 seq 35
+outputted
+id 649115822 sent ack 36
+id 649115822 received data packet of length 512 seq 36
+outputted
+id 649115822 sent ack 37
+id 649115822 received data packet of length 512 seq 37
+outputted
+id 649115822 sent ack 38
+id 649115822 received data packet of length 512 seq 38
+outputted
+id 649115822 sent ack 39
+id 649115822 received data packet of length 512 seq 39
+outputted
+id 649115822 sent ack 40
+id 649115822 received data packet of length 512 seq 40
+outputted
+id 649115822 sent ack 41
+id 649115822 received data packet of length 512 seq 41
+outputted
+id 649115822 sent ack 42
+id 649115822 received data packet of length 512 seq 42
+outputted
+id 649115822 sent ack 43
+id 649115822 received data packet of length 512 seq 43
+outputted
+id 649115822 sent ack 44
+id 649115822 received data packet of length 512 seq 44
+outputted
+id 649115822 sent ack 45
+id 649115822 received data packet of length 512 seq 45
+outputted
+id 649115822 sent ack 46
+id 649115822 received data packet of length 512 seq 46
+outputted
+id 649115822 sent ack 47
+id 649115822 received data packet of length 512 seq 47
+outputted
+id 649115822 sent ack 48
+id 649115822 received data packet of length 512 seq 48
+outputted
+id 649115822 sent ack 49
+id 649115822 received data packet of length 512 seq 49
+outputted
+id 649115822 sent ack 50
+id 649115822 received data packet of length 512 seq 50
+outputted
+id 649115822 sent ack 51
+id 649115822 received data packet of length 512 seq 51
+outputted
+id 649115822 sent ack 52
+id 649115822 received data packet of length 512 seq 52
+outputted
+id 649115822 sent ack 53
+id 649115822 received data packet of length 512 seq 53
+outputted
+id 649115822 sent ack 54
+id 649115822 received data packet of length 512 seq 54
+outputted
+id 649115822 sent ack 55
+id 649115822 received data packet of length 512 seq 55
+outputted
+id 649115822 sent ack 56
+id 649115822 received data packet of length 512 seq 56
+outputted
+id 649115822 sent ack 57
+id 649115822 received data packet of length 512 seq 57
+outputted
+id 649115822 sent ack 58
+id 649115822 received data packet of length 512 seq 58
+outputted
+id 649115822 sent ack 59
+id 649115822 received data packet of length 512 seq 59
+outputted
+id 649115822 sent ack 60
+id 649115822 received data packet of length 512 seq 60
+outputted
+id 649115822 sent ack 61
+id 649115822 received data packet of length 512 seq 61
+outputted
+id 649115822 sent ack 62
+id 649115822 received data packet of length 512 seq 62
+outputted
+id 649115822 sent ack 63
+id 649115822 received data packet of length 512 seq 63
+outputted
+id 649115822 sent ack 64
+id 649115822 received data packet of length 512 seq 64
+outputted
+id 649115822 sent ack 65
+id 649115822 received data packet of length 512 seq 65
+outputted
+id 649115822 sent ack 66
+id 649115822 received data packet of length 264 seq 66
+outputted
+id 649115822 sent ack 67
+id 649115822 received data packet of length 512 seq 67
+outputted
+id 649115822 sent ack 68
+id 649115822 received data packet of length 512 seq 68
+outputted
+id 649115822 sent ack 69
+id 649115822 received data packet of length 512 seq 69
+outputted
+id 649115822 sent ack 70
+id 649115822 received data packet of length 512 seq 70
+outputted
+id 649115822 sent ack 71
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 67
+sendPackt
+reading
+id 649115822 received ack packet 68 length 8
+pack ackno: 68, nextAckNum: 68checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 68
+sendPackt
+reading
+id 649115822 received ack packet 69 length 8
+pack ackno: 69, nextAckNum: 69checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 69
+sendPackt
+reading
+id 649115822 received ack packet 70 length 8
+pack ackno: 70, nextAckNum: 70checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 70
+sendPackt
+reading
+id 649115822 received ack packet 71 length 8
+pack ackno: 71, nextAckNum: 71checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 71
+sendPackt
+reading
+id 649115822 received ack packet 72 length 8
+pack ackno: 72, nextAckNum: 72checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 72
+sendPackt
+reading
+id 649115822 received ack packet 73 length 8
+pack ackno: 73, nextAckNum: 73checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 73
+sendPackt
+reading
+id 649115822 received ack packet 74 length 8
+pack ackno: 74, nextAckNum: 74checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 74
+sendPackt
+reading
+id 649115822 received ack packet 75 length 8
+pack ackno: 75, nextAckNum: 75checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 75
+sendPackt
+reading
+id 649115822 received ack packet 76 length 8
+pack ackno: 76, nextAckNum: 76checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 76
+sendPackt
+reading
+id 649115822 received ack packet 77 length 8
+pack ackno: 77, nextAckNum: 77checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 77
+sendPackt
+reading
+id 649115822 received ack packet 78 length 8
+pack ackno: 78, nextAckNum: 78checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 78
+sendPackt
+reading
+id 649115822 received ack packet 79 length 8
+pack ackno: 79, nextAckNum: 79checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 79
+sendPackt
+reading
+id 649115822 received ack packet 80 length 8
+pack ackno: 80, nextAckNum: 80checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 80
+sendPackt
+reading
+id 649115822 received ack packet 81 length 8
+pack ackno: 81, nextAckNum: 81checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 81
+sendPackt
+reading
+id 649115822 received ack packet 82 length 8
+pack ackno: 82, nextAckNum: 82checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 82
+sendPackt
+reading
+id 649115822 received ack packet 83 length 8
+pack ackno: 83, nextAckNum: 83checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 83
+sendPackt
+reading
+id 649115822 received ack packet 84 length 8
+pack ackno: 84, nextAckNum: 84checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 84
+sendPackt
+reading
+id 649115822 received ack packet 85 length 8
+pack ackno: 85, nextAckNum: 85checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 85
+sendPackt
+reading
+id 649115822 received ack packet 86 length 8
+pack ackno: 86, nextAckNum: 86checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 86
+sendPackt
+reading
+id 649115822 received ack packet 87 length 8
+pack ackno: 87, nextAckNum: 87checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 87
+sendPackt
+reading
+id 649115822 received ack packet 88 length 8
+pack ackno: 88, nextAckNum: 88checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 88
+sendPackt
+reading
+id 649115822 received ack packet 89 length 8
+pack ackno: 89, nextAckNum: 89checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 89
+sendPackt
+reading
+id 649115822 received ack packet 90 length 8
+pack ackno: 90, nextAckNum: 90checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 90
+sendPackt
+reading
+id 649115822 received ack packet 91 length 8
+pack ackno: 91, nextAckNum: 91checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 91
+sendPackt
+reading
+id 649115822 received ack packet 92 length 8
+pack ackno: 92, nextAckNum: 92checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 92
+sendPackt
+reading
+id 649115822 received ack packet 93 length 8
+pack ackno: 93, nextAckNum: 93checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 93
+sendPackt
+reading
+id 649115822 received ack packet 94 length 8
+pack ackno: 94, nextAckNum: 94checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 94
+sendPackt
+reading
+id 649115822 received ack packet 95 length 8
+pack ackno: 95, nextAckNum: 95checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 95
+sendPackt
+reading
+id 649115822 received ack packet 96 length 8
+pack ackno: 96, nextAckNum: 96checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 96
+sendPackt
+reading
+id 649115822 received ack packet 97 length 8
+pack ackno: 97, nextAckNum: 97checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 97
+sendPackt
+reading
+id 649115822 received ack packet 98 length 8
+pack ackno: 98, nextAckNum: 98checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 98
+sendPackt
+reading
+id 649115822 received ack packet 99 length 8
+pack ackno: 99, nextAckNum: 99checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 99
+sendPackt
+reading
+id 649115822 received ack packet 100 length 8
+pack ackno: 100, nextAckNum: 100checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 100
+sendPackt
+reading
+id 649115822 received ack packet 101 length 8
+pack ackno: 101, nextAckNum: 101checking to destroy 0 0
+reading
+reading2
+Packet sent from 649115822 with size 512 and seqno 101
+sendPackt
+reading
+id 649115822 received data packet of length 512 seq 71
+outputted
+id 649115822 sent ack 72
+id 649115822 received data packet of length 512 seq 72
+outputted
+id 649115822 sent ack 73
+id 649115822 received data packet of length 512 seq 73
+outputted
+id 649115822 sent ack 74
+id 649115822 received data packet of length 512 seq 74
+outputted
+id 649115822 sent ack 75
+id 649115822 received data packet of length 512 seq 75
+outputted
+id 649115822 sent ack 76
+id 649115822 received data packet of length 512 seq 76
+outputted
+id 649115822 sent ack 77
+id 649115822 received data packet of length 512 seq 77
+outputted
+id 649115822 sent ack 78
+id 649115822 received data packet of length 512 seq 78
+outputted
+id 649115822 sent ack 79
+id 649115822 received data packet of length 512 seq 79
+outputted
+id 649115822 sent ack 80
+id 649115822 received data packet of length 512 seq 80
+outputted
+id 649115822 sent ack 81
+id 649115822 received data packet of length 512 seq 81
+outputted
+id 649115822 sent ack 82
+id 649115822 received data packet of length 512 seq 82
+outputted
+id 649115822 sent ack 83
+id 649115822 received data packet of length 512 seq 83
+outputted
+id 649115822 sent ack 84
+id 649115822 received data packet of length 512 seq 84
+outputted
+id 649115822 sent ack 85
+id 649115822 received data packet of length 512 seq 85
+outputted
+id 649115822 sent ack 86
+id 649115822 received data packet of length 512 seq 86
+outputted
+id 649115822 sent ack 87
+id 649115822 received data packet of length 512 seq 87
+outputted
+id 649115822 sent ack 88
+id 649115822 received data packet of length 512 seq 88
+outputted
+id 649115822 sent ack 89
+id 649115822 received data packet of length 512 seq 89
+outputted
+id 649115822 sent ack 90
+id 649115822 received data packet of length 512 seq 90
+outputted
+id 649115822 sent ack 91
+id 649115822 received data packet of length 512 seq 91
+outputted
+id 649115822 sent ack 92
+id 649115822 received data packet of length 512 seq 92
+outputted
+id 649115822 sent ack 93
+id 649115822 received data packet of length 512 seq 93
+outputted
+id 649115822 sent ack 94
+id 649115822 received data packet of length 512 seq 94
+outputted
+id 649115822 sent ack 95
+id 649115822 received data packet of length 512 seq 95
+outputted
+id 649115822 sent ack 96
+id 649115822 received data packet of length 512 seq 96
+outputted
+id 649115822 sent ack 97
+id 649115822 received data packet of length 512 seq 97
+outputted
+id 649115822 sent ack 98
+id 649115822 received data packet of length 512 seq 98
+outputted
+id 649115822 sent ack 99
+id 649115822 received data packet of length 512 seq 99
+outputted
+id 649115822 sent ack 100
+id 649115822 received data packet of length 512 seq 100
+outputted
+id 649115822 sent ack 101
+FAILED
