@@ -62,9 +62,7 @@ struct packet_info{
 
 int readEOF;
 int recEOF;
-int clientDone;
-int serverDone;
-int waitingEOFACK;
+
 
 //declared helper functions
 //int getSendBufferSize(rel_t *r);
@@ -166,10 +164,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 
   //ack packet
   if(n==8){
-    if(clientDone==1){
-      fprintf(stderr, "Client done\n");
-      return NULL;
-    }
+    
     if(d==1)fprintf(stderr,"id %d received ack packet %d length %d\n", r->id,ntohl(pkt->ackno), ntohs(pkt->len));
     
 
@@ -188,15 +183,9 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
       r->packetsInFlight-=1;
 
       //now we are waiting for the next ack
-      if(waitingEOFACK==1){
-        clientDone=1;
-        checkDestroy(r);
-
-      }
-      else{
-          rel_read(r);
-
-      }
+      
+      rel_read(r);
+      checkDestroy(r);
       
 
       
@@ -268,53 +257,6 @@ rel_read (rel_t *s)
     sendPacket(s, p, s->seqNum);
     s->packetsInFlight+=1;
     fprintf(stderr, "sent Packet\n");
-
-
-
-    //read data into the sending window at the end
-    //char *temp=(char*)malloc(MAX_DATA_SIZE);
-    // isData = conn_input(s->c, s->sendingWindow+s->lastByteWritten,getSendBufferSize(s));
-     //you received an error or EOF
-
-    //isData = conn_input(s->c, temp,MAX_DATA_SIZE);
-
-    /*if(isData==-1){
-      fprintf(stderr, "read EOF\n");
-      //send EOF to receiver
-      readEOF=1;
-      s->lastByteWritten+=MAX_DATA_SIZE;
-      s->lastByteSent+=MAX_DATA_SIZE;
-
-      struct packet *p = (struct packet*)malloc(sizeof(struct packet));
-      makePacket(s, temp, p, 0, s->seqNum);
-
-      sendPacket(s, p, s->seqNum);
-      s->packetsInFlight+=1;
-      waitingEOFACK=1;
-      return;
-    }
-    
-    //there is no data to receive
-    if(isData==0){
-      fprintf(stderr, "nothing to read\n");
-      //free(temp);
-      return;
-    }
-
-
-    s->lastByteWritten+=MAX_DATA_SIZE;
-
-    struct packet *p = (struct packet*)malloc(sizeof(struct packet));
-    makePacket(s,temp,p, isData, s->seqNum);
-    sendPacket(s, p, s->seqNum);
-    s->packetsInFlight+=1;
-	 fprintf(stderr, "sendPackt\n");
-    s->lastByteSent+=MAX_DATA_SIZE;
-    s->seqNum+=1;*/
-     // free(temp);
-
-
-
   }
   else{
     fprintf(stderr, "no room\n");
@@ -374,7 +316,6 @@ packet_t * makePacket(rel_t *s, int seqno){
     p->len = htons(12);
     fprintf(stderr, "readEOF\n");
     readEOF=1;
-    waitingEOFACK=1;
 
   }
   else{
