@@ -315,7 +315,7 @@ rel_read (rel_t *s)
     makePacket(s,temp,p, isData, s->seqNum);
     sendPacket(s, p, s->seqNum);
     s->packetsInFlight+=1;
-	fprintf(stderr, "sendPackt\n");
+	  fprintf(stderr, "sendPackt\n");
     s->lastByteSent+=MAX_DATA_SIZE;
     s->seqNum+=1;
      // free(temp);
