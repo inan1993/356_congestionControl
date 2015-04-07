@@ -173,9 +173,12 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 			checkDestroy(r);
 			return;
 		}
-		if(n!=PACKET_HEADER){
+		if(n!=PACKET_HEADER && r->nextSeqNum==ntohl(pkt->seqno)){
 			rel_output2(r, pkt, n-PACKET_HEADER);
 		}
+    else{
+      fprintf(stderr, "packet dropped\n");
+    }
 	}
 }
 
@@ -308,7 +311,7 @@ void checkForTimeouts(rel_t* r){
     if(r->nextAckNum > ntohl(currNode->pkt->seqno)+1){
       if(prevVal == NULL){
         r->timeList = currNode->next;
-      	currNode = currNode->next;
+      	currNode = r->timeList;
         continue;
       	
       }
