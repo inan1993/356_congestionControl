@@ -165,7 +165,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 		}
     //if we've received an EOF, check if we should destroy the connection
 
-		if(r->recEOF != 1 && n == PACKET_HEADER && r->nextSeqNum==ntohl(pkt->seqno)){
+		if(r->recEOF != 1 && n == PACKET_HEADER){
 			if(d==1)fprintf(stderr, "eof received\n");
 			r->recEOF=1;
 			conn_output (r->c, NULL, 0);
@@ -302,6 +302,7 @@ void checkForTimeouts(rel_t* r){
   struct timeval currTime;
   gettimeofday(&currTime, NULL);
 
+  fprintf(stderr, "biiiiitch\n");
 
   while(currNode != NULL){
 
