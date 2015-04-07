@@ -308,8 +308,9 @@ void checkForTimeouts(rel_t* r){
     if(r->nextAckNum > ntohl(currNode->pkt->seqno)+1){
       if(prevVal == NULL){
         r->timeList = currNode->next;
-      	free(currNode);
-      	return;
+      	currNode = currNode->next;
+        continue;
+      	
       }
       prevVal->next = currNode->next;
 
@@ -326,9 +327,13 @@ void checkForTimeouts(rel_t* r){
       }
       else{prevVal -> next = currNode -> next;}
       sendPacket(r, currNode -> pkt, ntohl(currNode -> pkt -> seqno));
+      currNode = currNode ->next;
     }
-    prevVal = currNode;
-    currNode = currNode -> next;
+    else{
+        prevVal = currNode;
+        currNode = currNode -> next;
+
+    }
   }
 }
 
