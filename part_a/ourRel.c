@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -61,11 +62,13 @@ struct packet_info{
 
 int readEOF;
 int recEOF;
-
+int clientDone;
+int serverDone;
+int waitingEOFACK;
 
 //declared helper functions
 //int getSendBufferSize(rel_t *r);
-packet_t* makePacket(rel_t *s, int seqno);
+void makePacket(rel_t *s, char *data, packet_t *p, int sizeOfData, int seqno);
 //void allignSendingWindow(rel_t *r);
 //void allignReceivingWindow(rel_t *r);
 struct ack_packet* makeAndSendAckPacket(rel_t *s, int seqno);
@@ -163,7 +166,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 
   //ack packet
   if(n==8){
-    
+    if(clientDone==1)return NULL;
     if(d==1)fprintf(stderr,"id %d received ack packet %d length %d\n", r->id,ntohl(pkt->ackno), ntohs(pkt->len));
     
 
@@ -182,16 +185,18 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
       r->packetsInFlight-=1;
 
       //now we are waiting for the next ack
-      
-      rel_read(r);
-      checkDestroy(r);
+      if(waitingEOFACK==1){
+        clientDone=1;
+        checkDestroy(r);
+
+      }
+      else{
+          rel_read(r);
+
+      }
       
 
       
-    }
-
-    else{
-      fprintf(stderr,"weird ack received\n");
     }
   }
   //dataPacket
@@ -228,6 +233,34 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
     	fprintf(stderr, "packet rcvd out of order and dropped\n");
     }
 
+
+
+   /* //If you have room for it in the TCP buffer, store it
+    if(getReceiveBufferSize(r)>=MAX_DATA_SIZE){
+
+      int i;
+      //this loop is so there is room left if this packet was received out of order. If it was in order, this for loop won't do anything
+      for(i=0; i<(ntohl(pkt->seqno) - r->nextSeqNum); i++){
+        r->lastByteReceived+=MAX_DATA_SIZE;
+        if(d==1)fprintf(stderr,"space put in receiving window\n");
+
+      }
+      //store it at lastbytereceived
+      strcpy(r->receivingWindow+ r->lastByteReceived,pkt->data);
+      //increment last byte received by a max packet
+      r->lastByteReceived+=MAX_DATA_SIZE;
+      //if we received this in order, move nextByteExpected. also move the nextSeqNum
+      //to do, decide if we have future segments so we can write multiple things!
+      if(ntohl(pkt->seqno) == r->nextSeqNum){
+        r->nextByteExpected+=MAX_DATA_SIZE;
+        r->nextSeqNum+=1;
+        //everything is in order, write to output and possibly send acks if we can write!
+        rel_output2(r,pkt, n-12);
+      }
+    }
+    else{
+      fprintf(stderr, "packet dropped cause no room\n");
+    }   */ 
     
   }
 }
@@ -244,21 +277,51 @@ rel_read (rel_t *s)
   //loop while you still have buffer space to store data
  // fprintf(stderr, "pif: %d \n",s->packetsInFlight );
   if(s->packetsInFlight < s->maxWindowSize/MAX_DATA_SIZE){
-    struct packet *p = makePacket(s, s->seqNum);
-    if(p==NULL){
+
+    //read data into the sending window at the end
+    char *temp=(char*)malloc(MAX_DATA_SIZE);
+    // isData = conn_input(s->c, s->sendingWindow+s->lastByteWritten,getSendBufferSize(s));
+     //you received an error or EOF
+
+    isData = conn_input(s->c, temp,MAX_DATA_SIZE);
+
+    if(isData==-1){
+      fprintf(stderr, "read EOF\n");
+      //send EOF to receiver
+      readEOF=1;
+      s->lastByteWritten+=MAX_DATA_SIZE;
+      s->lastByteSent+=MAX_DATA_SIZE;
+
+      struct packet *p = (struct packet*)malloc(sizeof(struct packet));
+      makePacket(s, temp, p, 0, s->seqNum);
+
+      sendPacket(s, p, s->seqNum);
+      s->packetsInFlight+=1;
+      waitingEOFACK=1;
+      return;
+    }
+    
+    //there is no data to receive
+    if(isData==0){
       fprintf(stderr, "nothing to read\n");
-      return NULL;
+      //free(temp);
+      return;
     }
 
+
     s->lastByteWritten+=MAX_DATA_SIZE;
-    s->lastByteSent+=MAX_DATA_SIZE;
-    s->seqNum+=1;
+
+    struct packet *p = (struct packet*)malloc(sizeof(struct packet));
+    makePacket(s,temp,p, isData, s->seqNum);
     sendPacket(s, p, s->seqNum);
     s->packetsInFlight+=1;
-    fprintf(stderr, "sent Packet\n");
-  }
-  else{
-    fprintf(stderr, "no room\n");
+	fprintf(stderr, "sendPackt\n");
+    s->lastByteSent+=MAX_DATA_SIZE;
+    s->seqNum+=1;
+     // free(temp);
+
+
+
   }
 }
 
@@ -303,32 +366,14 @@ rel_timer ()
 }
 
 
-packet_t * makePacket(rel_t *s, int seqno){
-  packet_t *p = xmalloc (sizeof (*p));
-
-  int isData = conn_input (s->c, p->data, MAX_DATA_SIZE);
-
-  if(isData==0){
-    return NULL;
-  }
-  if(isData==-1){
-    p->len = htons(12);
-    fprintf(stderr, "readEOF\n");
-    readEOF=1;
-
-  }
-  else{
-    p->len = htons(isData+12);
-  }
-
-
+void makePacket(rel_t *s, char *data, struct packet *p, int sizeOfData, int seqno){
+  strncpy(p->data,data, sizeOfData);
 //  p->data[sizeOfData]='\0';
-  
+  p->len = htons(sizeOfData+12);
   p->ackno=htonl(1);
   p->seqno=htonl(seqno);
   p->cksum=0;
   p->cksum = cksum(p, ntohs(p->len));
-  return p;
   
 }
 

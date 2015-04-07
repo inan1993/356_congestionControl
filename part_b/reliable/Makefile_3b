@@ -11,10 +11,10 @@
 #DMALLOC_CFLAGS = -I/afs/ir/class/cs144/dmalloc -DDMALLOC=1
 #DMALLOC_LIBS = -L/afs/ir/class/cs144/dmalloc -ldmalloc
 
-LIBRT = -lrt
+LIBRT = `test -f /usr/lib/librt.a && printf -- -lrt`
 
 CC = gcc
-CFLAGS = -w -pthread -g -Wall $(DMALLOC_CFLAGS)
+CFLAGS = -g -Wall -Werror  $(DMALLOC_CFLAGS)
 LIBS = $(DMALLOC_LIBS)
 
 all: reliable
@@ -29,9 +29,8 @@ reliable: reliable.o rlib.o
 
 .PHONY: tester reference
 tester reference:
-	cd tester-src && $(MAKE) Examples/reliable/$@
-	cp tester-src/Examples/reliable/$@ .
-	strip $@
+	cd tester-src && $(MAKE) $@
+	cp tester-src/$@ .
 
 TAR = reliable.tar.gz
 
@@ -44,9 +43,9 @@ submit: clean
 	rm -f reliable
 	@echo '************************************************************'
 	@echo '                                                            '
-	@echo '  Please submit file $(TAR) to the following URL:  '
+	@echo '  Please submit file $(TAR) to the blackboard:              '
 	@echo '                                                            '
-	@echo '   https://www.stanford.edu/class/cs144/cgi-bin/submit/     '
+	@echo '                                                            '
 	@echo '                                                            '
 	@echo '************************************************************'
 
@@ -57,18 +56,18 @@ dist: clean tester reference
 	ln -s . reliable
 	tar -czf $(TAR) \
 		reliable/reliable.c-dist \
-		reliable/Makefile reliable/uc.c reliable/rlib.[ch] \
+		reliable/Makefile reliable/rlib.[ch] \
 		reliable/stripsol \
-		reliable/tester reliable/reference
+		# reliable/tester reliable/reference
 	rm -f reliable
 
 .PHONY: clean
 clean:
-	@find . \( -name '*~' -o -name '*.o' -o -name '*.hi' \) \
+	@find . \( -name '*~' -o -name '*.o' -o -name '*.log' \) \
 		-print0 > .clean~
 	@xargs -0 echo rm -f -- < .clean~
 	@xargs -0 rm -f -- < .clean~
-	rm -f uc reliable $(TAR)
+	rm -f reliable $(TAR)
 
 .PHONY: clobber
 clobber: clean
