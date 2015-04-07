@@ -15,7 +15,7 @@
 #include <math.h>
 #include "rlib.h"
 #define MAX_DATA_SIZE 1000
-#define d 1
+#define d 0
 #define ACK_PACKET_SIZE 12
 #define PACKET_HEADER 16
 #define initWindow 1
@@ -33,7 +33,7 @@ struct reliable_state {
 
   /* Add your own data fields below this */
   //for sending side
-
+  int bytesSent;
   int send_receive;
   int cwnd;
   int rwnd;
@@ -66,6 +66,9 @@ void sendPacket(rel_t *s, packet_t *pkt, int seqNo);
 void checkForTimeouts(rel_t* r);
 void addPacketToTimeout(rel_t* r, packet_t* packet);
 void sendEOF(rel_t* r);
+
+struct timeval start;
+struct timeval end;
 
 rel_t * rel_create (conn_t *c, const struct sockaddr_storage *ss,
 	const struct config_common *cc)
@@ -107,6 +110,7 @@ rel_t * rel_create (conn_t *c, const struct sockaddr_storage *ss,
     r -> readEOF = 1;
     if(d==1)fprintf(stderr,"Receiver sent EOF : %d! \n", r -> rwnd);
 	}
+   gettimeofday(&(start), NULL);
   return r;
 }
 
@@ -194,7 +198,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 			rel_output2(r, pkt, n-PACKET_HEADER);
 		}
     else{
-      fprintf(stderr, "packet dropped\n");
+      if(d==1)fprintf(stderr, "packet dropped\n");
     }
 	}
 }
@@ -240,7 +244,7 @@ packet_t * makePacket(rel_t *s, int seqno){
 }
 
 void sendPacket(rel_t *r, packet_t *pkt, int seqNo){
-
+  r -> bytesSent += ntohs(pkt -> len);
 	addPacketToTimeout(r, pkt);
 	conn_sendpkt(r->c, pkt, ntohs(pkt->len));
 	if(d==1)
@@ -248,6 +252,7 @@ void sendPacket(rel_t *r, packet_t *pkt, int seqNo){
 }
 
 struct ack_packet * makeAndSendAckPacket(rel_t *s, int seqno){
+  s -> bytesSent += ACK_PACKET_SIZE;
   struct ack_packet *p= xmalloc (sizeof (*p));
   p->len=htons(ACK_PACKET_SIZE);
   p->ackno = htonl(seqno);
@@ -259,12 +264,17 @@ struct ack_packet * makeAndSendAckPacket(rel_t *s, int seqno){
 }
 
 void checkDestroy(rel_t *r){
+
   if(d==1)fprintf(stderr, "checking to destroy %d %d\n", r->recEOF, r->readEOF);
   if(r->readEOF==1 && r->recEOF==1){
     if(d==1)fprintf(stderr, "first two\n");
     if(d==1)fprintf(stderr, "%d\n", r->packetsInFlight );
     if(r->packetsInFlight==0){
       if(d==1)fprintf(stderr,"chose to destroy!\n");
+      gettimeofday(&(end), NULL);
+      int timeDiff = ((int)(end.tv_sec) * 1000 + (int)(end.tv_usec)/1000) - ((int)(start .tv_sec)*1000 + (int)(start .tv_usec)/1000);
+      fprintf(stderr, "time taken to send data: %d \n", timeDiff); 
+      fprintf(stderr, "Bytes Sent %d \n", r -> bytesSent);
       rel_destroy(r);
     }
   }
@@ -310,7 +320,7 @@ void addPacketToTimeout(rel_t* r, packet_t* packet){
 
 
   currNode->next = newNode;
-  fprintf(stderr, "new node added seqno %d",ntohl(newNode->pkt->seqno) );
+if(d==1)  fprintf(stderr, "new node added seqno %d",ntohl(newNode->pkt->seqno) );
 
 
 }
@@ -325,7 +335,7 @@ void checkForTimeouts(rel_t* r){
   while(currNode != NULL){
 
     //check if packet was acked
-    fprintf(stderr, "check if pack was acked next ack exp: %d this packets num+1 %d\n",r->nextAckNum ,ntohl(currNode->pkt->seqno)+1 );
+if(d==1)fprintf(stderr, "check if pack was acked next ack exp: %d this packets num+1 %d\n",r->nextAckNum ,ntohl(currNode->pkt->seqno)+1 );
     if(r->nextAckNum > ntohl(currNode->pkt->seqno)+1){
       if(prevVal == NULL){
         r->timeList = currNode->next;
@@ -340,9 +350,9 @@ void checkForTimeouts(rel_t* r){
       continue;
     }
     int timeDiff = ((int)(currTime.tv_sec) * 1000 + (int)(currTime.tv_usec)/1000) - ((int)(currNode -> lastTransmission.tv_sec)*1000 + (int)(currNode -> lastTransmission.tv_usec)/1000);
-    fprintf(stderr, "time difffffff: %d and timout: %d\n", timeDiff, r->timeout);
+    if(d==1)fprintf(stderr, "time difffffff: %d and timout: %d\n", timeDiff, r->timeout);
     if(timeDiff >= r -> timeout){
-      fprintf(stderr,"found for timeouts! \n");
+      if(d==1)fprintf(stderr,"found for timeouts! \n");
       if(prevVal == NULL){
         r->timeList = currNode->next;
       }
@@ -378,9 +388,10 @@ void updateWindow(rel_t* r, packet_t* recv){
     r -> rwnd = ntohl(recv -> rwnd);
   //finds the minimum
     r -> sendWindowSize = (r -> rwnd < r -> cwnd)?r->rwnd:r->cwnd;
-    fprintf(stderr, "updated rwnd to: %d updated cwnd to: %d updated currWindow to: %d \n", r -> rwnd, r -> cwnd, r -> sendWindowSize);
+    if(d==1)fprintf(stderr, "updated rwnd to: %d updated cwnd to: %d updated currWindow to: %d \n", r -> rwnd, r -> cwnd, r -> sendWindowSize);
   }
 void sendEOF(rel_t* r){
+    r -> bytesSent += PACKET_HEADER;
     packet_t* p = malloc(sizeof(packet_t));
     p -> len = htons(PACKET_HEADER);
     p->rwnd = htonl(r -> rwnd);
