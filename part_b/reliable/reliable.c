@@ -25,12 +25,7 @@ struct timeout_node{
   packet_t* pkt;
   struct timeval lastTransmission;
 };
-struct pkt_node{
-  packet_t* packet;
-  int seqNo;
-  struct pkt_node* next;
-  struct pkt_node* prev;
-};
+
 
 struct reliable_state {
   rel_t *next;      /* Linked list for traversing all connections */
@@ -39,7 +34,6 @@ struct reliable_state {
 
   /* Add your own data fields below this */
   //for sending side
-  struct pkt_node* head;
   int bytesSent;
   int send_receive;
   int cwnd;
@@ -67,9 +61,7 @@ struct reliable_state {
 
 };
 rel_t *rel_list;
-void initializeBuffer(struct pkt_node* head);
-void flushBuffer(rel_t* r, struct pkt_node* head);
-void addToBuffer(struct pkt_node* head, packet_t* p);
+
 packet_t* makePacket(rel_t *s, int seqno);
 struct ack_packet* makeAndSendAckPacket(rel_t *s, int seqno);
 void rel_output2(rel_t *r, packet_t *p, int lenToPrint);
@@ -101,8 +93,7 @@ rel_t * rel_create (conn_t *c, const struct sockaddr_storage *ss,
 		}
 
 	}
-r -> head = (struct pkt_node*)malloc(sizeof(struct pkt_node));
-initializeBuffer(r->head);
+
 // r -> timeList = (struct timeout_node*)malloc(sizeof(struct timeout_node));
 	r -> timeList = NULL;
 	r->c = c;
@@ -225,9 +216,9 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 			return;
 		}
 		if(n!=PACKET_HEADER && r->nextSeqNum==ntohl(pkt->seqno)){
-			//rel_output2(r, pkt, n-PACKET_HEADER);
-      addToBuffer(r -> head, pkt);
-      flushBuffer(r, r -> head);
+			rel_output2(r, pkt, n-PACKET_HEADER);
+   //    addToBuffer(r -> head, pkt);
+   //    flushBuffer(r, r -> head);
 		}
     else{
       makeAndSendAckPacket(r, 0 );
@@ -449,63 +440,4 @@ void sendEOF(rel_t* r){
     if(d==1)fprintf(stderr,"SENT EOF\n");
     return NULL;
   }
-   void addToBuffer(struct pkt_node* head, packet_t* p){
-   int seqNo =ntohl(p -> seqno);
-   struct pkt_node* toAdd = (struct pkt_node*) malloc(sizeof(struct pkt_node));
-   toAdd -> packet = p;
-   toAdd -> seqNo = seqNo;
-   struct pkt_node* currNode = head;
-   if(head -> next -> packet == NULL){
-    toAdd -> next = head -> next;
-    toAdd -> prev = head;
-    head -> next -> prev = toAdd;
-    head -> next = toAdd;
-  }
-//  currNode = currNode -> next;
-  while(currNode -> next != NULL){
-    if(currNode -> seqNo != seqNo && currNode -> next != seqNo)
-      if(currNode -> seqNo < seqNo && currNode -> next -> seqNo > seqNo){
-        fprintf(stderr, "packet added to Linked List %d\n", seqNo);
-        toAdd -> next = currNode -> next;
-        toAdd -> prev = currNode;
-        currNode -> next -> prev = toAdd;
-        currNode -> next = toAdd;
-        break;
-      }
-      currNode = currNode -> next;
-    } 
-  }
-
-  void flushBuffer(rel_t* r, struct pkt_node* head){
-   int nextExpected = r -> nextSeqNum;
-   struct pkt_node* currNode = head -> next;
-   if(head -> next -> seqNo == nextExpected){
-    while(currNode -> next != NULL){
-     if(currNode -> seqNo == nextExpected){
-      rel_output2(r, currNode -> packet, ntohs(currNode -> packet -> len)-PACKET_HEADER);
-      currNode -> prev -> next = currNode -> next;
-      currNode -> next -> prev = currNode -> prev;
-      fprintf(stderr, "%d , %d-> ", currNode -> seqNo, nextExpected);
-    }
-      //NEED TO FREE IT MAYBE
-    else{
-      fprintf(stderr, "\n");
-      r -> nextSeqNum = nextExpected;
-      return;}
-      currNode = currNode -> next;
-      nextExpected ++;
-    }
-  }
-  fprintf(stderr, "\n");    
-}
-void initializeBuffer(struct pkt_node* head){
-   struct pkt_node* tail = (struct pkt_node*) malloc(sizeof(struct pkt_node));
-   head -> next = tail;
-   head -> seqNo = -1;
-   head -> packet = NULL;
-   head -> prev = NULL;
-   tail -> next = NULL;
-   tail -> packet = NULL;
-   tail -> prev = head;
-   tail -> seqNo = 9999999;
- }
+   
