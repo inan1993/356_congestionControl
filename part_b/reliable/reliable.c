@@ -297,8 +297,8 @@ void checkDestroy(rel_t *r){
       if(d==1)fprintf(stderr,"chose to destroy!\n");
       gettimeofday(&(end), NULL);
       int timeDiff = ((int)(end.tv_sec) * 1000 + (int)(end.tv_usec)/1000) - ((int)(start .tv_sec)*1000 + (int)(start .tv_usec)/1000);
-      fprintf(stderr, "time taken to send data: %d \n", timeDiff); 
-      fprintf(stderr, "Bytes Sent %d \n", r -> bytesSent);
+      if(r->send_receive==SENDER) fprintf(stderr, "time taken to send data: %d \n", timeDiff); 
+      //fprintf(stderr, "Bytes Sent %d \n", r -> bytesSent);
       rel_destroy(r);
     }
   }

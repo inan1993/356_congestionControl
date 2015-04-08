@@ -351,6 +351,6 @@ void
 rel_output (rel_t *r)
 {
   if(d==1)fprintf(stderr, "in output\n");
- //rel_output2(r, 500); 
+ // rel_output2(r, 500); 
 
 }
