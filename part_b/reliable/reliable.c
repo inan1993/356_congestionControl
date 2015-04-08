@@ -56,6 +56,8 @@ struct reliable_state {
   int timeout;
 
   int packetsInFlight;
+  int numAcks;
+
 };
 rel_t *rel_list;
 
@@ -169,7 +171,20 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 			r->packetsInFlight-=1;
 			checkDestroy(r);
 			rel_read(r);
+      numAcks=0;
 		}
+
+    if(ntohl(pkt->ackno)==0){
+      r->numAcks++;
+      if(r->numAcks==3){
+        r->cwnd = r->cwnd/2
+        numAcks=0;
+        ssthresh = ssthresh/2;
+      }
+      r -> sendWindowSize = (r -> rwnd < r -> cwnd)?r->rwnd:r->cwnd;
+    if(d==1)fprintf(stderr, "updated rwnd to: %d updated cwnd to: %d updated currWindow to: %d \n", r -> rwnd, r -> cwnd, r -> sendWindowSize);
+    }
+
 
 	}
   //dataPacket
@@ -202,6 +217,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 			rel_output2(r, pkt, n-PACKET_HEADER);
 		}
     else{
+      makeAndSendAckPacket(r, 0 );
       if(d==1)fprintf(stderr, "packet dropped\n");
     }
 	}
