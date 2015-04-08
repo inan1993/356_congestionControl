@@ -38,6 +38,8 @@ struct reliable_state {
   int cwnd;
   int rwnd;
   int sendWindowSize;
+  int ssthresh;
+  int aimdCounter;
 
   uint32_t seqNum; //the sequence number you should send starting at 1
   uint32_t nextAckNum; //the next ack number that you expect
@@ -101,6 +103,8 @@ rel_t * rel_create (conn_t *c, const struct sockaddr_storage *ss,
   r->rwnd=(cc->window );
   r->sendWindowSize = initWindow ;
   r -> cwnd = initWindow;
+  r -> aimdCounter = 0;
+  r -> ssthresh = 99999999;
 	r->seqNum=1; r->nextAckNum=2; r->nextSeqNum=1;
 	srand(time(NULL));
 	r->id = rand();
@@ -185,7 +189,7 @@ rel_recvpkt (rel_t *r, packet_t *pkt, size_t n)
 			if(d==1)fprintf(stderr, "eof received\n");
 			r->recEOF=1;
       if(r -> send_receive == SENDER){
-          updateWindow(r, pkt);
+          updateWindow(r, NULL);
           r-> cwnd --;
           r-> sendWindowSize --;
         }
@@ -353,6 +357,8 @@ if(d==1)fprintf(stderr, "check if pack was acked next ack exp: %d this packets n
     if(d==1)fprintf(stderr, "time difffffff: %d and timout: %d\n", timeDiff, r->timeout);
     if(timeDiff >= r -> timeout){
       if(d==1)fprintf(stderr,"found for timeouts! \n");
+        r -> ssthresh = r->ssthresh/2;
+        updateWindow(r, NULL);
       if(prevVal == NULL){
         r->timeList = currNode->next;
       }
@@ -384,9 +390,19 @@ rel_output (rel_t *r)
 
 }
 void updateWindow(rel_t* r, packet_t* recv){
+   if(r -> sendWindowSize > r -> ssthresh){
+        r -> aimdCounter ++;
+    
+     if(r->aimdCounter >= r->sendWindowSize){
+      r ->cwnd ++;
+      r->aimdCounter = 0;
+    }
+  }
+  else{
     r -> cwnd ++;
-    r -> rwnd = ntohl(recv -> rwnd);
+    if(recv != NULL){ r -> rwnd = ntohl(recv -> rwnd);}
   //finds the minimum
+  }
     r -> sendWindowSize = (r -> rwnd < r -> cwnd)?r->rwnd:r->cwnd;
     if(d==1)fprintf(stderr, "updated rwnd to: %d updated cwnd to: %d updated currWindow to: %d \n", r -> rwnd, r -> cwnd, r -> sendWindowSize);
   }
