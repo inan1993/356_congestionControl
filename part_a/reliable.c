@@ -34,7 +34,6 @@ struct reliable_state {
   /* Add your own data fields below this */
   //for sending side
 
-
   uint32_t seqNum; //the sequence number you should send starting at 1
   uint32_t nextAckNum; //the next ack number that you expect
   
